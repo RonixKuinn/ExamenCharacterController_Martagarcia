@@ -19,6 +19,7 @@ public class CharacterController : MonoBehaviour
     [SerializeField] Transform _sensorPosition;
     [SerializeField] float _sensorRadius = 0.5f;
 
+
     void Awake()
     {
         _controller = GetComponent<CharacterController>();
@@ -30,12 +31,10 @@ public class CharacterController : MonoBehaviour
     {
         _horizontal = Input.GetAxis("Horizontal");
         _vertical = Input.GetAxis("Vertical");
-        
         if(Input.GetButtonDown("Jump") && IsGrouded())
         {
             Jump();
         }
-
         Movement();
         Gravity();
     }
@@ -43,18 +42,16 @@ public class CharacterController : MonoBehaviour
     void Movement()
     {
         Vector3 direction = new Vector3(_horizontal, 0, _vertical);
-
         _animator.SetFloat("VelZ", direction.magnitude);
         _animator.SetFloat("VelX", 0);
-
         if(direction !=Vector3.zero)
         {
             float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + _camera.eulerAngles.y;
             float smoothAngle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref _turnSmoothVelocity, _turnSmoothTime);
             transform.rotation = Quaternion.Euler(0, smoothAngle, 0);
-        
             Vector3 moveDirecion = Quaternion.Euler(0, targetAngle, 0) * Vector3.forward;
-            _controller.Move(moveDirecion * _movementSpeed * Time.deltaTime);
+
+            _controller.Move(moveDirecion * _movementSpeed * Time.deltaTime);   //esta cosa del Move no se como se arregla
         }
     }
 
@@ -76,7 +73,7 @@ public class CharacterController : MonoBehaviour
             _playerGravity.y = -1;
         }
 
-        _controller.Move(_playerGravity * Time.deltaTime);
+        _controller.Move(_playerGravity * Time.deltaTime);  //esta cosa del Move no se como se arregla
     }
 
     bool IsGrouded()
