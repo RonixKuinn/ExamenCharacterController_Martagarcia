@@ -60,7 +60,8 @@ public class CharacterController : MonoBehaviour
 
     void Jump()
     {
-        
+        _animator.SetBool("IsJumping", true);
+        _playerGravity.y = Mathf.Sqrt(_jumpHeight * -2 * _gravity);
     }
 
     void Gravity()
@@ -82,36 +83,4 @@ public class CharacterController : MonoBehaviour
     {
         return Physics.CheckSphere(_sensorPosition.position, _sensorRadius, _groundLayer);
     }
-
-    /*void MovimientoCutre()
-    {
-        Vector3 direction = new Vector3(_horizontal, 0, _vertical);
-        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-        _controller.Move(direction * _movementSpeed * Time.deltaTime)
-    }*/
 }
-
-
-
-
-
- 
-    /*
-
-    void Jump()
-    {
-        _animator.SetBool("IsJumping", true);
-        _playerGravity.y = Mathf.Sqrt(_jumpHeight * -2 * _gravity);
-    }
-
-    id MovimientoCutre()
-    {
-        Vector3 direction = new Vector3(_horizontal, 0, _vertical);
-
-        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
-
-
-
-        _controller.Move(direction * _movementSpeed * Time.deltaTime)
-    }
-*/
